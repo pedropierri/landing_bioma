@@ -3,11 +3,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Lexend:wght@100..900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 :root {
     /* ----- Fonts ----- */
-    --font-title: 'Press Start 2P', sans-serif;
+    --font-title: 'Poppins', serif;
     --font-text: 'Lexend', sans-serif;
 
     /* ----- Colors ----- */
@@ -31,7 +31,7 @@ html {
 }
 
 body {
-    
+    max-width: 100vw;
     background-color: var(--color-background);
     color: var(--color-text);
     -webkit-font-smoothing: antialiased;
@@ -44,16 +44,20 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
+
+
 /*----- Header -----*/
 #main-header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 90vw;
     height: 100px;
     z-index: 1000;
     padding: 5px 20px;
     transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+
+    overflow-x: hidden;
 }
 
 #main-header.scrolled {
@@ -72,10 +76,11 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
-/* ----- Logo ----- */
 .logo-bioma {
     width: 90px;
     height: 90px;
+
+    flex-shrink: 0;
 }
 
 
@@ -83,6 +88,8 @@ h1, h2, h3, h4, h5, h6 {
     list-style: none;
     display: flex;
     gap: 30px; 
+
+    flex-shrink: 0;
 }
 
 .main-nav a {
@@ -93,6 +100,16 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text);
     position: relative;
     padding: 5px 0;
+    .main-nav a {
+    font-family: var(--font-text);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text);
+    position: relative;
+    padding: 5px 0;
+    text-decoration: none;
+}
 }
 
 .main-nav a::after {
@@ -139,8 +156,6 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    
-
 }
 
 .main-nav.active ul {
@@ -165,28 +180,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* --- Estilo para Telas Menores (Mobile) --- */
-@media (max-width: 768px) {
-    .main-nav {
-        display: none; /* Esconde o menu de texto */
-    }
-
-    .hamburger-menu {
-        display: flex; /* Mostra o ícone hamburger */
-    }
-}
-
 /*----- Hero -----*/
-#hero {
-    position: relative;
-    width: 100%;
-    height: 85vh; 
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
 
 #hero {
     position: relative;
@@ -229,6 +223,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: cover;
+    object-position: right;
     z-index: 0;
 }
 
@@ -243,9 +238,96 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1;
 }
 
-@media (max-width: 768px) {
+/* --- Estilo para Telas Menores (Mobile) --- */
+@media (max-width: 900px) {
+    .main-nav {
+        display: none; /* Esconde o menu de texto */
+    }
+
+    .hamburger-menu {
+        display: flex; /* Mostra o ícone hamburger */
+    }
+
+    #hero {
+        /* Para contornar o problema do 100vh em mobile browsers */
+        min-height: -webkit-fill-available; /* Para navegadores baseados em WebKit (Safari, Chrome iOS) */
+        min-height: fill-available; /* Padrão, para outros navegadores */
+        height: 100svh; /* svh = Smallest Viewport Height, para browsers modernos */
+        height: 100vh; /* Fallback para browsers antigos */
+    }
+
+    .video-background {
+            height: 115%;
+            width: 105%; 
+        } 
+
     #hero h1 {
-        font-size: 2.5rem;
+        font-size: 80px;
         letter-spacing: 2px;
+    }
+}
+
+/*----- The Nocturnal Cycle -----*/
+#nocturnal-cycle h2 {
+    font-family: var(--font-title);
+    font-weight: 500;
+}
+
+#nocturnal-cycle p {
+    font-family: var(--font-text);
+    font-weight: 300;
+}
+
+/* Seu CSS para desktop (telas maiores) */
+#nocturnal-cycle #events-list {
+    width: 100vw;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* Regra para cada card dentro da lista (que você já tem) */
+.event-card {
+    max-width: 570px;
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil */
+    border: 1px solid rgba(0, 255, 255, 0.2); /* Borda com transparência da cor acento primária */
+    border-radius: 8px;
+    padding: 30px;
+    flex: 1 1 calc(33% - 40px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent-primary); /* Borda sólida da cor acento primária no hover */
+}
+
+/* Ajuste para mobile (telas menores) */
+@media (max-width: 900px) {
+    /* Ajuste para o contêiner da lista de eventos */
+    #nocturnal-cycle #events-list {
+        flex-direction: column; /* FORÇA os cards a ficarem em coluna (vertical) */
+        align-items: center;    /* Centraliza os cards na coluna */
+        gap: 25px; /* Ajuste o gap para mobile, se quiser */
+    }
+
+    /* Ajuste para cada card em mobile */
+    .event-card {
+        flex: 1 1 90%; /* CHAVE: Faz cada card ocupar 90% da largura do contêiner */
+                       /* Isso garante que eles fiquem em uma única coluna e tenham algum padding lateral */
+        max-width: 400px; /* Opcional: limita a largura máxima do card em telas pequenas para não ficarem GIGANTES em tablets que se enquadram no 768px */
+        padding: 20px;
+    }
+
+    .event-image-container {
+        width: calc(100% + 40px);
+        margin: -20px -20px 15px -20px;
+        height: 150px;
     }
 }

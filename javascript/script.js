@@ -91,6 +91,5 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(typeWriterEffect, speed);
     }
 
-    // Inicia o efeito após um pequeno atraso (1 segundo)
-    setTimeout(typeWriterEffect, 1000);
+    setTimeout(typeWriterEffect, 850);
 });
