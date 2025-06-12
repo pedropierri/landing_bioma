@@ -9,7 +9,7 @@
 <body>
     <header id="main-header">
         <div class="header-container">
-            <img src="../media/images/logo/image (10).png" alt="Bioma Logo" class="logo-bioma">
+            <img src="../media/images/logo/logo-bioma.png" alt="Bioma Logo" class="logo-bioma">
 
         <nav class="main-nav">
             <ul>
@@ -32,9 +32,10 @@
         <section id="hero">
             <h1></h1>
             <div class="video-background">
-                <video autoplay loop muted playsinline poster="../media/videos/bioma_video.mp4">
+                <video autoplay loop muted playsinline poster="../media/images/poster-fallback.jpg">
+                   <source src="../media/videos/bioma_video_phone.mp4" type="video/mp4" media="(max-width: 768px)">
+    
                     <source src="../media/videos/bioma_video.mp4" type="video/mp4">
-                    Seu navegador não suporta vídeos HTML5.
                 </video>
             </div>
         </section>
