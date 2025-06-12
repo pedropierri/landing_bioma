@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
     position: relative;
     width: 100%;
-    height: 88vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -280,52 +280,118 @@ h1, h2, h3, h4, h5, h6 {
 #nocturnal-cycle #events-list {
     width: 100%;
     display: flex;
-    flex-flow: row nowrap;
-    gap: 30px;
-    justify-content: space-between;
-    margin-top: 40px;
+    flex-flow: row wrap; /* Permite que os cards quebrem para a próxima linha */
+    gap: 40px; /* Espaço entre os cards */
+    justify-content: center; /* Centraliza os cards horizontalmente */
+    padding: 60px 40px; /* Espaçamento ao redor da seção inteira */
 }
 
-/* Regra para cada card dentro da lista (que você já tem) */
+/* A "casca" de cada cartão individual */
 .event-card {
-    max-width: 570px;
-    background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil */
-    border: 1px solid rgba(0, 255, 255, 0.2); /* Borda com transparência da cor acento primária */
-    border-radius: 8px;
-    padding: 30px;
-    flex: 1 1 calc(33% - 40px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    overflow: hidden;
+    background-color: #111513; /* Um fundo um pouco mais escuro que o do site */
+    border: 1px solid rgba(0, 255, 255, 0.15); /* Borda ciano sutil */
+    border-radius: 12px; /* Bordas arredondadas */
+    overflow: hidden; /* ESSENCIAL: Garante que a imagem seja "cortada" pelas bordas arredondadas */
+    width: 100%; /* Ocupa o espaço disponível no flex container */
+    max-width: 450px; /* Largura máxima do card no desktop */
+    margin: 0;
+    transition: transform 0.4s ease, border-color 0.4s ease;
     display: flex;
     flex-direction: column;
 }
 
 .event-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-accent-primary); /* Borda sólida da cor acento primária no hover */
+    border-color: var(--color-accent-primary); /* Borda sólida da cor acento primária no hover*/
 }
 
-/* Ajuste para mobile (telas menores) */
+/* O container da imagem no topo */
+.event-image-container {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* <<< CHAVE: Define a proporção widescreen (ajuste se suas imagens forem 4:3, etc) */
+    background-color: #000; /* Cor de fundo caso a imagem não carregue */
+}
+
+/* A imagem em si */
+.event-image-container img {
+    width: 100%;
+    height: 100%;
+    display: block; /* Remove espaços extras abaixo da imagem */
+    object-fit: cover; /* A MÁGICA: Faz a imagem cobrir o container sem distorcer */
+}
+
+/* A área de conteúdo com o espaçamento */
+.event-content {
+    padding: 30px; /* O espaçamento interno para o texto */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço restante no card */
+}
+
+.event-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700; /* Dando um pouco mais de peso aos títulos dos cards */
+    margin-bottom: 15px;
+    color: var(--color-accent-primary);
+}
+
+.event-content p {
+    font-family: var(--font-text);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex-grow: 1; /* Empurra o botão para o final do card */
+}
+
+/* O botão de tickets */
+.btn-tickets {
+    display: block;
+    background-color: var(--color-accent-primary);
+    color: var(--color-background);
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-tickets:hover {
+    background-color: var(--color-accent-secondary);
+    color: var(--color-background);
+    transform: scale(1.03);
+}
+
 @media (max-width: 900px) {
-    /* Ajuste para o contêiner da lista de eventos */
-    #nocturnal-cycle #events-list {
-        flex-direction: column; /* FORÇA os cards a ficarem em coluna (vertical) */
-        align-items: center;    /* Centraliza os cards na coluna */
-        gap: 25px; /* Ajuste o gap para mobile, se quiser */
+    #nocturnal-cycle h1, 
+    #nocturnal-cycle h2,
+    #nocturnal-cycle p {
+        text-align: center;
     }
 
-    /* Ajuste para cada card em mobile */
+    #nocturnal-cycle h1 {
+        font-size: 60px;
+    }
+
+    #nocturnal-cycle #events-list {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
     .event-card {
-        flex: 1 1 90%; /* CHAVE: Faz cada card ocupar 90% da largura do contêiner */
-                       /* Isso garante que eles fiquem em uma única coluna e tenham algum padding lateral */
-        max-width: 400px; /* Opcional: limita a largura máxima do card em telas pequenas para não ficarem GIGANTES em tablets que se enquadram no 768px */
-        padding: 20px;
+        flex: 1 1 90%;
+        max-width: 100%;
+        padding: 10px;
     }
 
     .event-image-container {
         width: calc(100% + 40px);
         margin: -20px -20px 15px -20px;
-        height: 150px;
+        height: 250px;
     }
 }
