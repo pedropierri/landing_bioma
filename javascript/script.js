@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Código do Menu Hambúrguer e Header Scroll (já existentes) ---
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const mainNav = document.querySelector('.main-nav');
     const header = document.getElementById('main-header');
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         header.classList.toggle('active');
         hamburgerMenu.classList.toggle('active');
         if (mainNav.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; // Impede o scroll em mobile
+            document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mainNav.classList.contains('active')) {
                 mainNav.classList.remove('active');
                 hamburgerMenu.classList.remove('active');
-                document.body.style.overflow = ''; // Restaura o scroll
+                document.body.style.overflow = '';
             }
         });
     });
@@ -33,9 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Efeito de Digitação e Apagamento para o H1 ---
-    const h1Element = document.querySelector('#hero h1'); // Seleciona o H1 do Hero
-    const words = [ // Sua lista de palavras
+    const h1Element = document.querySelector('#hero h1');
+    const words = [
         "IMMERSE.",
         "CONNECT.",
         "EVOLVE.",
@@ -44,15 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
         "SYSTEM."
     ];
 
-    let wordIndex = 0; // Índice da palavra atual no array
-    let charIndex = 0; // Índice do caractere atual da palavra
-    let isDeleting = false; // Flag para saber se está digitando ou apagando
-    const typingSpeed = 150; // Velocidade de digitação (ms por caractere)
-    const deletingSpeed = 100; // Velocidade de apagamento (ms por caractere)
-    const pauseBeforeNext = 1500; // Tempo de pausa antes de apagar ou digitar a próxima palavra
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 150;
+    const deletingSpeed = 100;
+    const pauseBeforeNext = 1500;
 
     function typeWriterEffect() {
-        // Sai da função se o elemento h1 não for encontrado (evita erros)
         if (!h1Element) {
             console.warn("Elemento h1 para o efeito de digitação não encontrado.");
             return;
@@ -62,35 +59,36 @@ document.addEventListener('DOMContentLoaded', function() {
         let displayText = '';
 
         if (isDeleting) {
-            // Se estiver apagando, remove um caractere
             displayText = currentWord.substring(0, charIndex - 1);
             charIndex--;
         } else {
-            // Se estiver digitando, adiciona um caractere
             displayText = currentWord.substring(0, charIndex + 1);
             charIndex++;
         }
 
-        // Atualiza o texto visível no h1
         h1Element.textContent = displayText;
 
-        let speed = isDeleting ? deletingSpeed : typingSpeed; // Define a velocidade base
+        let speed = isDeleting ? deletingSpeed : typingSpeed;
 
-        // Lógica de transição entre digitar e apagar
         if (!isDeleting && charIndex === currentWord.length) {
-            // Terminou de digitar a palavra atual
-            speed = pauseBeforeNext; // Pausa antes de apagar
-            isDeleting = true; // Muda para o modo de apagar
-        } else if (isDeleting && charIndex === 0) {
-            // Terminou de apagar a palavra atual
-            isDeleting = false; // Muda para o modo de digitar
-            wordIndex = (wordIndex + 1) % words.length; // Avança para a próxima palavra (loop)
-            speed = typingSpeed; // Reinicia a velocidade de digitação
+            speed = pauseBeforeNext;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) { 
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            speed = typingSpeed;
         }
-
-        // Chama a função novamente após o tempo definido
         setTimeout(typeWriterEffect, speed);
     }
 
     setTimeout(typeWriterEffect, 850);
+
+    const heroVideo = document.querySelector('.video-background video');
+
+    if (heroVideo) {
+
+    heroVideo.play().catch(error => {
+        console.warn("Autoplay do vídeo foi bloqueado pelo navegador. Isso é esperado em alguns celulares.", error);
+    });
+}
 });
