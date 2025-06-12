@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     hamburgerMenu.addEventListener('click', function() {
         mainNav.classList.toggle('active');
+        header.classList.toggle('active');
         hamburgerMenu.classList.toggle('active');
         if (mainNav.classList.contains('active')) {
             document.body.style.overflow = 'hidden'; // Impede o scroll em mobile

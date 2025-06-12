@@ -2,13 +2,15 @@
 @charset "UTF-8";
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Lexend:wght@100..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Lexend:wght@400;700&family=Plus+Jakarta+Sans:wght@300;700&display=swap');
+
+
 :root {
     /* ----- Fonts ----- */
     --font-title: 'Poppins', serif;
     --font-text: 'Lexend', sans-serif;
+    --font-code: 'Fira Code', monospace;
 
     /* ----- Colors ----- */
     --color-background: #0D110F;
@@ -51,16 +53,15 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     z-index: 1000;
-    padding: 5px 20px;
-    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
-
-    overflow-x: hidden;
+    transition: background-color 0.4s ease;
+    background-color: rgba(13, 17, 15, 0.301);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 #main-header.scrolled {
-    background-color: rgba(13, 17, 15, 0.5);
+    background-color: rgba(13, 17, 15, 0.7);
     backdrop-filter: blur(10px); 
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -69,26 +70,24 @@ h1, h2, h3, h4, h5, h6 {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-
+    padding: 5px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100px;
 }
 
 .logo-bioma {
-    width: 90px;
     height: 90px;
-
+    width: auto;
     flex-shrink: 0;
 }
 
-
+/*----- Navegação Principal (Desktop) -----*/
 .main-nav ul {
     list-style: none;
     display: flex;
     gap: 30px; 
-
-    flex-shrink: 0;
 }
 
 .main-nav a {
@@ -116,16 +115,16 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
-
-/* --- Menu Hamburger (Mobile) --- */
+/*----- Menu Hamburger e Lógica Mobile -----*/
 .hamburger-menu {
     display: none;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1001;
-    flex-direction: column;
-    gap: 5px;
+    z-index: 1002;
+    position: relative;
+    width: 30px;
+    height: 30px;
 }
 
 .hamburger-menu span {
@@ -133,40 +132,71 @@ h1, h2, h3, h4, h5, h6 {
     width: 25px;
     height: 2px;
     background-color: var(--color-text);
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.main-nav.active {
-    display: flex;
-    flex-direction: column;
-    position: absolute; 
-    top: 90px;
-    left: 0;    
-    background-color: rgba(13, 17, 15, 0.5);
-    width: 100%;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.main-nav.active ul {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-}
-
-.main-nav.active a {
-    font-size: 1.1rem; 
-}
+.hamburger-menu span:nth-child(1) { top: 7px; }
+.hamburger-menu span:nth-child(2) { top: 14px; }
+.hamburger-menu span:nth-child(3) { top: 21px; }
 
 .hamburger-menu.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
-
 .hamburger-menu.active span:nth-child(2) {
-    opacity: 0; /* Hide the middle bar */
+    opacity: 0;
 }
-
 .hamburger-menu.active span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+
+    .main-nav {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .main-nav.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(13, 17, 15, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 1001;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .main-nav.active ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 30px;
+    }
+    
+    .main-nav.active a {
+        font-size: 1.5rem;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    #hero h1 {
+        font-size: 65px;
+    }
 }
 
 /*----- Hero -----*/
@@ -227,32 +257,9 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1;
 }
 
-/* --- Estilo para Telas Menores (Mobile) --- */
 @media (max-width: 900px) {
-    .main-nav {
-        display: none; /* Esconde o menu de texto */
-    }
-
-    .hamburger-menu {
-        display: flex; /* Mostra o ícone hamburger */
-    }
-
-    #hero {
-        /* Para contornar o problema do 100vh em mobile browsers */
-        min-height: -webkit-fill-available; /* Para navegadores baseados em WebKit (Safari, Chrome iOS) */
-        min-height: fill-available; /* Padrão, para outros navegadores */
-        height: 100svh; /* svh = Smallest Viewport Height, para browsers modernos */
-        height: 100vh; /* Fallback para browsers antigos */
-    }
-
-    .video-background {
-            height: 115%;
-            width: 105%; 
-        } 
-
     #hero h1 {
-        font-size: 80px;
-        letter-spacing: 2px;
+        font-size: 65px;        
     }
 }
 
@@ -262,8 +269,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #nocturnal-cycle h1 {
-    font-size: 80px;
+    font-size: 100px;
     font-weight: 500;
+    padding: 0px 40px;
 }
 
 #nocturnal-cycle h2 {
@@ -280,20 +288,19 @@ h1, h2, h3, h4, h5, h6 {
 #nocturnal-cycle #events-list {
     width: 100%;
     display: flex;
-    flex-flow: row wrap; /* Permite que os cards quebrem para a próxima linha */
-    gap: 40px; /* Espaço entre os cards */
-    justify-content: center; /* Centraliza os cards horizontalmente */
-    padding: 60px 40px; /* Espaçamento ao redor da seção inteira */
+    flex-flow: row wrap;
+    gap: 40px;
+    justify-content: space-between;
+    padding: 50px 40px;
 }
 
-/* A "casca" de cada cartão individual */
 .event-card {
-    background-color: #111513; /* Um fundo um pouco mais escuro que o do site */
-    border: 1px solid rgba(0, 255, 255, 0.15); /* Borda ciano sutil */
-    border-radius: 12px; /* Bordas arredondadas */
-    overflow: hidden; /* ESSENCIAL: Garante que a imagem seja "cortada" pelas bordas arredondadas */
-    width: 100%; /* Ocupa o espaço disponível no flex container */
-    max-width: 450px; /* Largura máxima do card no desktop */
+    background-color: #111513;
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 450px;
     margin: 0;
     transition: transform 0.4s ease, border-color 0.4s ease;
     display: flex;
@@ -302,35 +309,32 @@ h1, h2, h3, h4, h5, h6 {
 
 .event-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-accent-primary); /* Borda sólida da cor acento primária no hover*/
+    border-color: var(--color-accent-primary);
 }
 
-/* O container da imagem no topo */
 .event-image-container {
     width: 100%;
-    aspect-ratio: 16 / 9; /* <<< CHAVE: Define a proporção widescreen (ajuste se suas imagens forem 4:3, etc) */
-    background-color: #000; /* Cor de fundo caso a imagem não carregue */
+    aspect-ratio: 4 / 3;
+    background-color: #000;
 }
 
-/* A imagem em si */
 .event-image-container img {
     width: 100%;
     height: 100%;
-    display: block; /* Remove espaços extras abaixo da imagem */
-    object-fit: cover; /* A MÁGICA: Faz a imagem cobrir o container sem distorcer */
+    display: block; 
+    object-fit: cover;
 }
 
-/* A área de conteúdo com o espaçamento */
 .event-content {
-    padding: 30px; /* O espaçamento interno para o texto */
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço restante no card */
+    flex-grow: 1; 
 }
 
 .event-content h2 {
     font-size: 1.8rem;
-    font-weight: 700; /* Dando um pouco mais de peso aos títulos dos cards */
+    font-weight: 700;
     margin-bottom: 15px;
     color: var(--color-accent-primary);
 }
@@ -341,10 +345,11 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     line-height: 1.6;
     margin-bottom: 30px;
-    flex-grow: 1; /* Empurra o botão para o final do card */
+    flex-grow: 1;
 }
-
-/* O botão de tickets */
+.event-content a {
+    text-decoration: none;
+}
 .btn-tickets {
     display: block;
     background-color: var(--color-accent-primary);
@@ -361,7 +366,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-tickets:hover {
     background-color: var(--color-accent-secondary);
-    color: var(--color-background);
     transform: scale(1.03);
 }
 
@@ -394,4 +398,166 @@ h1, h2, h3, h4, h5, h6 {
         margin: -20px -20px 15px -20px;
         height: 250px;
     }
+}
+
+/*----- Ecosystem -----*/
+#ecosystem {
+    min-height: 80vh;
+    position: relative;
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* Camada 1: O Degradê (por cima) */
+    background: linear-gradient(to right, 
+        var(--color-background) 20%, 
+        rgba(13, 17, 15, 0.7) 50%, 
+        rgba(13, 17, 15, 0) 70%
+    ),
+    
+    url('../media/images/ecosystem/image1.png');
+
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+/* Container que segura o texto */
+.ecosystem-content {
+    max-width: 50%; /* Faz o texto ocupar no máximo metade da tela */
+    padding: 60px;
+    color: var(--color-text);
+}
+
+.ecosystem-content h2 {
+    font-size: 70px;
+    color: var(--color-accent-primary);
+    font-weight: 100;
+}
+
+.ecosystem-content h3 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.ecosystem-content p {
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* --- Responsividade para Mobile --- */
+@media (max-width: 1200px) {
+    #ecosystem {
+        /* No mobile, o texto fica sobre a imagem, que escurece por inteiro */
+        justify-content: center;
+        text-align: center;
+        background-position: center center;
+        background: linear-gradient(rgba(13, 17, 15, 0.8), rgba(13, 17, 15, 0.8)), 
+                    url('../media/images/ecosystem/image1.png');
+        background-size: cover;
+    }
+
+    .ecosystem-content {
+        max-width: 90%;
+        padding: 40px 20px;
+    }
+
+    .ecosystem-content h2 {
+        font-size: 3rem;
+    }
+}
+
+/*----- The Source Code -----*/
+#source-code {
+    padding: 120px 40px; /* Espaçamento vertical e horizontal */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Espaço entre os blocos de "código" */
+}
+
+#source-code h2 {
+    font-size: 4rem;
+    color: var(--color-accent-primary);
+}
+
+#source-code h3 {
+    font-size: 1.2rem;
+    font-family: var(--font-text);
+    font-weight: 400;
+    text-transform: none; /* Remove o uppercase para o subtítulo */
+    color: var(--color-text-muted);
+    margin-top: -20px; /* Aproxima o subtítulo do título */
+    max-width: 40ch; /* Limita a largura para quebra de linha */
+}
+
+/* Container para cada "regra" do manifesto */
+.code-block {
+    width: 100%;
+    max-width: 650px; /* Largura máxima do conteúdo */
+    border-top: 1px solid rgba(0, 255, 255, 0.1); /* Linha divisória sutil */
+    padding-top: 40px;
+}
+
+/* Estilo para os "comentários de código" */
+.code-comment {
+    font-family: var(--font-code);
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Estilo para o texto normal da seção */
+#source-code p {
+    font-family: var(--font-text);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+}
+
+/* Estilo para o formulário de newsletter */
+.code-form {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.code-form input {
+    background-color: transparent;
+    border: 1px solid var(--color-text-muted);
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: var(--color-text);
+    font-family: var(--font-code);
+    width: 100%;
+    max-width: 300px;
+    transition: border-color 0.3s ease;
+}
+
+.code-form input:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+}
+
+.code-form button {
+    background-color: var(--color-accent-primary);
+    color: var(--color-background);
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-family: var(--font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.code-form button:hover {
+    background-color: var(--color-accent-secondary);
 }
