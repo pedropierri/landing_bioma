@@ -53,11 +53,9 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100%; /* TROCADO: 100% é mais seguro que 100vw */
     z-index: 1000;
-    transition: background-color 0.4s ease;
-    background-color: rgba(13, 17, 15, 0.301);
-    -webkit-backdrop-filter: blur(15px);
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 #main-header.scrolled {
@@ -86,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 /*----- Navegação Principal (Desktop) -----*/
 .main-nav ul {
     list-style: none;
-    display: flex;
+    display: flex; /* Por padrão (desktop), o menu é visível e horizontal */
     gap: 30px; 
 }
 
@@ -115,9 +113,9 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
-/*----- Menu Hamburger e Lógica Mobile -----*/
+/*----- Ícone Hamburger -----*/
 .hamburger-menu {
-    display: none;
+    display: none; /* Escondido no desktop */
     background: none;
     border: none;
     cursor: pointer;
@@ -141,6 +139,7 @@ h1, h2, h3, h4, h5, h6 {
 .hamburger-menu span:nth-child(2) { top: 14px; }
 .hamburger-menu span:nth-child(3) { top: 21px; }
 
+/* Animação do 'X' */
 .hamburger-menu.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -151,37 +150,45 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* =========================================== */
+/* REGRAS PARA MOBILE (max-width: 900px)       */
+/* =========================================== */
 @media (max-width: 900px) {
 
+    /* No mobile, a navegação de desktop é escondida */
     .main-nav {
         display: none;
     }
 
+    /* E o ícone hamburger é mostrado */
     .hamburger-menu {
-        display: block;
+        display: block; 
     }
 
+    /* QUANDO O MENU ESTIVER ATIVO (.active), ele se torna um overlay */
     .main-nav.active {
-        display: flex;
+        display: flex; 
         justify-content: center;
         align-items: center;
-        position: fixed;
+        
+        /* --- A CORREÇÃO PRINCIPAL ESTÁ AQUI --- */
+        position: fixed; /* Posiciona o menu em relação à tela, não à página */
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;  /* 100% da largura da tela (viewport width) */
+        height: 100vh; /* 100% da altura da tela (viewport height) */
+        /* --- FIM DA CORREÇÃO --- */
+
         background-color: rgba(13, 17, 15, 0.8);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        z-index: 1001;
-        animation: fadeIn 0.3s ease;
+        z-index: 1001; /* Garante que o menu fique acima do header */
+        animation: fadeIn 0.3s ease-in-out;
     }
 
     .main-nav.active ul {
-        display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100%;
         gap: 30px;
     }
     
@@ -192,10 +199,6 @@ h1, h2, h3, h4, h5, h6 {
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
-    }
-    
-    #hero h1 {
-        font-size: 65px;
     }
 }
 
@@ -482,7 +485,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #source-code h2 {
-    font-size: 4rem;
+    font-size: 64px;
+    font-weight: 200;
     color: var(--color-accent-primary);
 }
 
@@ -561,3 +565,171 @@ h1, h2, h3, h4, h5, h6 {
 .code-form button:hover {
     background-color: var(--color-accent-secondary);
 }
+
+
+/*---- Specimens -----*/
+#specimens {
+    padding: 40px 40px;
+    text-align: center;
+}
+
+#specimens h2 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+#specimens h3 {
+    font-size: 1.2rem;
+    font-family: var(--font-text);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    text-transform: none;
+    margin-bottom: 60px;
+}
+
+/* O container do nosso grid 3x2 */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de larguras iguais */
+    gap: 20px; /* Espaçamento entre as fotos */
+    max-width: 1400px;
+    margin: 0 auto; /* Centraliza o grid */
+}
+
+/* O container de cada imagem */
+.gallery-item {
+    aspect-ratio: 16 / 9; /* Força a proporção widescreen 16:9 */
+    overflow: hidden; /* Garante que a imagem não vaze */
+    border-radius: 8px;
+    position: relative; /* Para o efeito de hover */
+    cursor: pointer;
+}
+
+/* A imagem dentro do container */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cobre todo o espaço sem distorcer */
+    transition: transform 0.4s ease;
+}
+
+/* Efeito de hover na imagem */
+.gallery-item:hover img {
+    transform: scale(1.05); /* Leve efeito de zoom ao passar o mouse */
+}
+
+/* O link para ver todas as fotos */
+.gallery-link {
+    margin-top: 60px;
+}
+
+.gallery-link a {
+    font-family: var(--font-code, monospace); /* Usando a fonte de código que definimos */
+    color: var(--color-accent-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+
+    transition: 0.3s ease;
+}
+
+.gallery-link a:hover {
+    color: var(--color-accent-secondary);
+    text-decoration: underline;
+}
+
+/* --- Responsividade da Galeria --- */
+@media (max-width: 900px) {
+    .gallery-grid {
+        /* Em telas menores, o grid vira uma única coluna */
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #specimens {
+        padding: 80px 20px;
+    }
+
+    #specimens h2 {
+        font-size: 3rem;
+    }
+}
+
+/*----- Coordinates -----*/
+#coordinates {
+    padding: 100px 40px;
+    background-color: #111513;
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    text-align: center;
+}
+
+#coordinates h2 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+#coordinates h3 {
+    font-size: 1.2rem;
+    font-family: var(--font-text);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    text-transform: none;
+    margin-bottom: 80px;
+}
+
+.coordinates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-block h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent-primary);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.contact-block p, .contact-block li {
+    font-family: var(--font-text);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+.contact-block a {
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+}
+
+.contact-block a:hover {
+    color: var(--color-text);
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+}
+
+@media (max-width: 900px) {
+    #coordinates {
+        padding: 80px 20px;
+    }
+
+    .coordinates-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+/*----- Footer -----*/
