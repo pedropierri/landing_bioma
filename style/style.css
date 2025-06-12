@@ -1,10 +1,7 @@
 /* ----- Imports -----*/
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Lexend:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Lexend:wght@400;700&family=Plus+Jakarta+Sans:wght@300;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lexend:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
     /* ----- Fonts ----- */
@@ -53,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* TROCADO: 100% é mais seguro que 100vw */
+    width: 100%;
     z-index: 1000;
     transition: background-color 0.4s ease, border-color 0.4s ease;
 }
@@ -84,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 /*----- Navegação Principal (Desktop) -----*/
 .main-nav ul {
     list-style: none;
-    display: flex; /* Por padrão (desktop), o menu é visível e horizontal */
+    display: flex;
     gap: 30px; 
 }
 
@@ -113,9 +110,8 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
-/*----- Ícone Hamburger -----*/
 .hamburger-menu {
-    display: none; /* Escondido no desktop */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
@@ -139,7 +135,6 @@ h1, h2, h3, h4, h5, h6 {
 .hamburger-menu span:nth-child(2) { top: 14px; }
 .hamburger-menu span:nth-child(3) { top: 21px; }
 
-/* Animação do 'X' */
 .hamburger-menu.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -150,39 +145,31 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* =========================================== */
-/* REGRAS PARA MOBILE (max-width: 900px)       */
-/* =========================================== */
 @media (max-width: 900px) {
 
-    /* No mobile, a navegação de desktop é escondida */
     .main-nav {
         display: none;
     }
 
-    /* E o ícone hamburger é mostrado */
     .hamburger-menu {
         display: block; 
     }
 
-    /* QUANDO O MENU ESTIVER ATIVO (.active), ele se torna um overlay */
     .main-nav.active {
         display: flex; 
         justify-content: center;
         align-items: center;
         
-        /* --- A CORREÇÃO PRINCIPAL ESTÁ AQUI --- */
-        position: fixed; /* Posiciona o menu em relação à tela, não à página */
+        position: fixed;    
         top: 0;
         left: 0;
-        width: 100vw;  /* 100% da largura da tela (viewport width) */
-        height: 100vh; /* 100% da altura da tela (viewport height) */
-        /* --- FIM DA CORREÇÃO --- */
+        width: 100vw;   
+        height: 100vh;
 
-        background-color: rgba(13, 17, 15, 0.8);
+        background-color: rgba(13, 17, 15, 0.952);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        z-index: 1001; /* Garante que o menu fique acima do header */
+        z-index: 1001;
         animation: fadeIn 0.3s ease-in-out;
     }
 
@@ -287,7 +274,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
-/* Seu CSS para desktop (telas maiores) */
 #nocturnal-cycle #events-list {
     width: 100%;
     display: flex;
@@ -406,13 +392,11 @@ h1, h2, h3, h4, h5, h6 {
 /*----- Ecosystem -----*/
 #ecosystem {
     min-height: 80vh;
-    position: relative;
-    
+    position: relative;  
     display: flex;
     align-items: center;
     justify-content: flex-start;
 
-    /* Camada 1: O Degradê (por cima) */
     background: linear-gradient(to right, 
         var(--color-background) 20%, 
         rgba(13, 17, 15, 0.7) 50%, 
@@ -428,7 +412,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Container que segura o texto */
 .ecosystem-content {
-    max-width: 50%; /* Faz o texto ocupar no máximo metade da tela */
+    max-width: 50%;
     padding: 60px;
     color: var(--color-text);
 }
@@ -455,7 +439,6 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Responsividade para Mobile --- */
 @media (max-width: 1200px) {
     #ecosystem {
-        /* No mobile, o texto fica sobre a imagem, que escurece por inteiro */
         justify-content: center;
         text-align: center;
         background-position: center center;
@@ -476,12 +459,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /*----- The Source Code -----*/
 #source-code {
-    padding: 120px 40px; /* Espaçamento vertical e horizontal */
+    padding: 120px 40px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px; /* Espaço entre os blocos de "código" */
+    gap: 40px;
 }
 
 #source-code h2 {
@@ -494,13 +477,12 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.2rem;
     font-family: var(--font-text);
     font-weight: 400;
-    text-transform: none; /* Remove o uppercase para o subtítulo */
-    color: var(--color-text-muted);
-    margin-top: -20px; /* Aproxima o subtítulo do título */
-    max-width: 40ch; /* Limita a largura para quebra de linha */
+    text-transform: none;
+    color: var(--color-text);
+    margin-top: -20px;
+    max-width: 40ch;
 }
 
-/* Container para cada "regra" do manifesto */
 .code-block {
     width: 100%;
     max-width: 650px; /* Largura máxima do conteúdo */
