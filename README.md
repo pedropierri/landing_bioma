@@ -1,21 +1,21 @@
 <h1>Landing Page BiomaClub 🌿</h1>
-A BiomaClub é uma marca fictícia de uma boate com uma proposta de imersão e conexão com a natureza. Esta landing page foi criada para refletir essa identidade: um site clean e leve, mas com uma complexidade visual sutil que utiliza layouts modernos e micro-animações em JavaScript para envolver o visitante e oferecer uma prévia da experiência.
+BiomaClub is a fictional nightclub brand with a focus on immersion and connection with nature. This landing page was created to reflect that identity: a clean and light website, but with a subtle visual complexity that uses modern layouts and micro-animations in JavaScript to engage visitors and offer a preview of the experience.
 
-<h2> 🚀 Tecnologias</h2>
-Linguagens: HTML, CSS, JavaScript
+<h2> 🚀 Technologies</h2>
+Languages: HTML, CSS, JavaScript
 
-Foco: Layouts flexíveis com Flexbox/Grid, animações em CSS puro e manipulação de DOM para interatividade.
+Focus: Flexible layouts with Flexbox/Grid, pure CSS animations, and DOM manipulation for interactivity.
 
-<h2>🖼️ Prévias</h2>
+<h2>🖼️ Previews</h2>
 <img width="1892" height="862" alt="image" src="https://github.com/user-attachments/assets/832425cb-94eb-4c08-a7d3-9346f47f49e6" />
 
 
-<h2>🛠️ Instalação e Uso</h2>
-1. Clone este repositório para o seu ambiente local:
-git clone https://github.com/pedropierri/bioma-club.git
+<h2>🛠️ Installation and Use</h2>
+1. Clone this repository to your local environment:
+git clone https://github.com/pedropierri/landing_bioma.git
 
-2. Abra o arquivo index.html no seu navegador.
+2. Open the index.html file in your browser..
 
-<h2>🤝 Autor</h2>
+<h2>🤝 Author</h2>
 Coded by Pedro Pierri
 
